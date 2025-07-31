@@ -4,38 +4,57 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import sampleone.composeapp.generated.resources.Res
-import sampleone.composeapp.generated.resources.ic_heart
-import sampleone.composeapp.generated.resources.ic_message
-import sampleone.composeapp.generated.resources.ic_search
-import sampleone.composeapp.generated.resources.ic_more
-import sampleone.composeapp.generated.resources.ic_add
-import sampleone.composeapp.generated.resources.ic_wifi
-import sampleone.composeapp.generated.resources.ic_signal
 import sampleone.composeapp.generated.resources.ic_battery
-import sampleone.composeapp.generated.resources.ic_like
-import sampleone.composeapp.generated.resources.ic_comment
-import sampleone.composeapp.generated.resources.ic_share
 import sampleone.composeapp.generated.resources.ic_bookmark
-import sampleone.composeapp.generated.resources.story_1
+import sampleone.composeapp.generated.resources.ic_comment
+import sampleone.composeapp.generated.resources.ic_heart
+import sampleone.composeapp.generated.resources.ic_home
+import sampleone.composeapp.generated.resources.ic_like
+import sampleone.composeapp.generated.resources.ic_message
+import sampleone.composeapp.generated.resources.ic_more
+import sampleone.composeapp.generated.resources.ic_reels
+import sampleone.composeapp.generated.resources.ic_search
+import sampleone.composeapp.generated.resources.ic_share
+import sampleone.composeapp.generated.resources.ic_signal
+import sampleone.composeapp.generated.resources.ic_verified
+import sampleone.composeapp.generated.resources.ic_wifi
 import sampleone.composeapp.generated.resources.main_post_image
+import sampleone.composeapp.generated.resources.profile_small
+import sampleone.composeapp.generated.resources.story_1
+import sampleone.composeapp.generated.resources.story_2
+import sampleone.composeapp.generated.resources.story_3
+import sampleone.composeapp.generated.resources.story_4
+import sampleone.composeapp.generated.resources.story_5
 
 @Composable
 fun FeedPostScreen(onAvatarClick: () -> Unit = {}) {
@@ -194,8 +213,8 @@ fun FeedStoryTray() {
             // First story with "Your Story" and add button
             item {
                 FeedStoryItem(
-                    username = "Your Story",
-                    avatarResource = "",
+                    username = "Ruffles",
+                    avatarResource = Res.drawable.profile_small,
                     hasStory = false,
                     isFirstItem = true
                 )
@@ -204,10 +223,10 @@ fun FeedStoryTray() {
             // Other stories with real avatar images
             items(
                 listOf(
-                    "" to "",
-                    "" to "",
-                    "" to "",
-                    "" to ""
+                    "sabanok..." to Res.drawable.story_2,
+                    "blue_bouy" to Res.drawable.story_3,
+                    "waggles" to Res.drawable.story_4,
+                    "steve.loves" to Res.drawable.story_5,
                 )
             ) { (username, avatarResource) ->
                 FeedStoryItem(
@@ -222,7 +241,7 @@ fun FeedStoryTray() {
 }
 
 @Composable
-fun FeedStoryItem(username: String, avatarResource: String, hasStory: Boolean, isFirstItem: Boolean) {
+fun FeedStoryItem(username: String, avatarResource: DrawableResource, hasStory: Boolean, isFirstItem: Boolean) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.width(72.dp)
@@ -241,7 +260,14 @@ fun FeedStoryItem(username: String, avatarResource: String, hasStory: Boolean, i
                         shape = CircleShape
                     )
             ){
-
+                Image(
+                    painter = painterResource(avatarResource),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
             }
             
             // Add button for first item
@@ -301,6 +327,16 @@ fun FeedUserHeader(onAvatarClick: () -> Unit) {
                     )
                     .clickable { onAvatarClick() }
             )
+            {
+                Image(
+                    painter = painterResource(Res.drawable.profile_small),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+            }
             
             Text(
                 text = "Ruffles",
@@ -591,7 +627,7 @@ fun FeedBottomNavigation() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(Res.drawable.ic_heart),
+                painter = painterResource(Res.drawable.ic_home),
                 contentDescription = "Home",
                 modifier = Modifier.size(24.dp)
             )
@@ -601,12 +637,12 @@ fun FeedBottomNavigation() {
                 modifier = Modifier.size(24.dp)
             )
             Image(
-                painter = painterResource(Res.drawable.ic_add),
+                painter = painterResource(Res.drawable.ic_reels),
                 contentDescription = "Add",
                 modifier = Modifier.size(24.dp)
             )
             Image(
-                painter = painterResource(Res.drawable.ic_heart),
+                painter = painterResource(Res.drawable.ic_verified),
                 contentDescription = "Activity",
                 modifier = Modifier.size(24.dp)
             )
@@ -631,7 +667,13 @@ fun FeedBottomNavigation() {
                         .size(4.dp)
                         .background(Color(0xFFFE0135), CircleShape)
                         .offset(x = 18.dp, y = 18.dp)
-                )
+                ){
+                    Image(
+                        painter = painterResource(Res.drawable.profile_small),
+                        contentDescription = "Activity",
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
             }
         }
     }

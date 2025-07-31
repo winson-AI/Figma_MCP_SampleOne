@@ -278,7 +278,7 @@ fun ProfileUserData(
                             shape = CircleShape
                         )
                 )
-                
+
                 // Profile image
                 Box(
                     modifier = Modifier
@@ -286,12 +286,15 @@ fun ProfileUserData(
                         .align(Alignment.Center)
                         .background(Color.White, CircleShape)
                         .border(0.5.dp, Color(0xFFDDDDDD), CircleShape)
-                ) {
-                    // TODO: Replace with actual profile image
-                    Box(
+                )
+                {
+                    Image(
+                        painter = painterResource(Res.drawable.profile_small),
+                        contentDescription = null,
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color(0xFFF0F0F0), CircleShape)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop
                     )
                 }
             }
@@ -415,6 +418,16 @@ fun ProfileUsernameAndInfo(
                                     .fillMaxSize()
                                     .background(Color(0xFFDDDDDD), CircleShape)
                             )
+                            {
+                                Image(
+                                    painter = painterResource(Res.drawable.story_1),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .clip(CircleShape),
+                                    contentScale = ContentScale.Crop
+                                )
+                            }
                         }
                     }
                 }
