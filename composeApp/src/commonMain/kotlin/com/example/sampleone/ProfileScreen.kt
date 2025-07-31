@@ -2,7 +2,7 @@ package com.example.sampleone
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -20,25 +20,87 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.Image
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontFamily
+import org.jetbrains.compose.resources.painterResource
+import sampleone.composeapp.generated.resources.Res
+import sampleone.composeapp.generated.resources.ic_heart
+import sampleone.composeapp.generated.resources.ic_back
+import sampleone.composeapp.generated.resources.ic_notification
+import sampleone.composeapp.generated.resources.ic_more
+import sampleone.composeapp.generated.resources.ic_wifi
+import sampleone.composeapp.generated.resources.ic_battery
+import sampleone.composeapp.generated.resources.ic_grid
+import sampleone.composeapp.generated.resources.ic_reels
+import sampleone.composeapp.generated.resources.ic_tagged
+import sampleone.composeapp.generated.resources.ic_carousel
+import sampleone.composeapp.generated.resources.ic_reels_small
+import sampleone.composeapp.generated.resources.ic_more_options
+import org.jetbrains.compose.resources.DrawableResource
+import sampleone.composeapp.generated.resources.ic_verified
+import sampleone.composeapp.generated.resources.ic_home
+import sampleone.composeapp.generated.resources.ic_search
+import sampleone.composeapp.generated.resources.profile_small
+import sampleone.composeapp.generated.resources.ic_add
+import sampleone.composeapp.generated.resources.story_1
+import sampleone.composeapp.generated.resources.story_2
+import sampleone.composeapp.generated.resources.story_3
+import sampleone.composeapp.generated.resources.story_4
+import sampleone.composeapp.generated.resources.story_5
+import sampleone.composeapp.generated.resources.post_1
+import sampleone.composeapp.generated.resources.post_2
+import sampleone.composeapp.generated.resources.post_3
+import sampleone.composeapp.generated.resources.post_4
+import sampleone.composeapp.generated.resources.post_5
+import sampleone.composeapp.generated.resources.post_6
+import sampleone.composeapp.generated.resources.post_7
+import sampleone.composeapp.generated.resources.post_8
+import sampleone.composeapp.generated.resources.post_9
+import sampleone.composeapp.generated.resources.post_10
+import sampleone.composeapp.generated.resources.post_11
+import sampleone.composeapp.generated.resources.post_12
+import sampleone.composeapp.generated.resources.post_13
+import sampleone.composeapp.generated.resources.post_14
+import sampleone.composeapp.generated.resources.post_15
+
+
 
 @Composable
 fun ProfileScreen(onBackClick: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFDDDDDD)) // Frame background color from Figma
+            .background(Color.Black) // Frame background color from Figma
     ) {
         // Status Bar - Height: 47dp
         ProfileStatusBar()
         
         // Navigation Bar - Height: 40dp  
-        ProfileNavigationBar(onBackClick = onBackClick)
+        ProfileNavigationBar(
+            username = "username",
+            isVerified = true,
+            onBackClick = onBackClick
+        )
         
         // User Profile Data - Height: 90dp
-        ProfileUserData()
+        ProfileUserData(
+            posts = "1,234",
+            followers = "5,678",
+            following = "9,101"
+        )
         
         // Username and Info - Height: 234dp
-        ProfileUsernameAndInfo()
+        ProfileUsernameAndInfo(
+            username = "Username",
+            categoryText = "Category/Genre text",
+            bio = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt #hashtag",
+            link = "Link goes here",
+            followedByText = "Followed by username, username\nand 100 others"
+        )
         
         // Saved IG Stories - Height: 86dp
         ProfileSavedStories()
@@ -47,7 +109,13 @@ fun ProfileScreen(onBackClick: () -> Unit = {}) {
         ProfileTabNavigation()
         
         // Grid Photo View - Remaining space
-        ProfileGridPhotoView()
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .background(Color.White)
+        ) {
+            ProfileGridPhotoView()
+        }
         
         // Bottom Navigation - Height: 56dp
         ProfileBottomNavigation()
@@ -83,24 +151,30 @@ fun ProfileStatusBar() {
                 .padding(end = 27.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Wifi icon placeholder
-            Box(
-                modifier = Modifier
-                    .size(17.dp, 12.dp)
-                    .background(Color.White)
+            // Wifi icon
+            Image(
+                painter = painterResource(Res.drawable.ic_wifi),
+                contentDescription = "Wifi",
+                modifier = Modifier.size(17.dp, 12.dp),
+                colorFilter = ColorFilter.tint(Color.White)
             )
-            // Battery icon placeholder  
-            Box(
-                modifier = Modifier
-                    .size(27.dp, 13.dp)
-                    .background(Color.White)
+            // Battery icon
+            Image(
+                painter = painterResource(Res.drawable.ic_battery),
+                contentDescription = "Battery",
+                modifier = Modifier.size(27.dp, 13.dp),
+                colorFilter = ColorFilter.tint(Color.White)
             )
         }
     }
 }
 
 @Composable
-fun ProfileNavigationBar(onBackClick: () -> Unit) {
+fun ProfileNavigationBar(
+    username: String,
+    isVerified: Boolean,
+    onBackClick: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -108,14 +182,19 @@ fun ProfileNavigationBar(onBackClick: () -> Unit) {
             .background(Color.Black)
     ) {
         // Back button on left
-        Box(
+        IconButton(
+            onClick = onBackClick,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(start = 14.dp)
-                .size(24.dp)
-                .background(Color.White)
-                .clickable { onBackClick() }
-        )
+        ) {
+            Image(
+                painter = painterResource(Res.drawable.ic_back),
+                contentDescription = "Back",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
+        }
         
         // Username in center with verified badge
         Row(
@@ -124,18 +203,19 @@ fun ProfileNavigationBar(onBackClick: () -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = "username",
+                text = username,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
             
-            // Verified badge
-            Box(
-                modifier = Modifier
-                    .size(16.dp)
-                    .background(Color(0xFF1FA1FF), CircleShape)
-            )
+            if (isVerified) {
+                Image(
+                    painter = painterResource(Res.drawable.ic_verified),
+                    contentDescription = "Verified",
+                    modifier = Modifier.size(16.dp)
+                )
+            }
         }
         
         // Right icons
@@ -145,19 +225,28 @@ fun ProfileNavigationBar(onBackClick: () -> Unit) {
                 .padding(end = 14.dp),
             horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            repeat(2) {
-                Box(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .background(Color.White)
-                )
-            }
+            Image(
+                painter = painterResource(Res.drawable.ic_notification),
+                contentDescription = "Notifications",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
+            Image(
+                painter = painterResource(Res.drawable.ic_more),
+                contentDescription = "More options",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
         }
     }
 }
 
 @Composable
-fun ProfileUserData() {
+fun ProfileUserData(
+    posts: String,
+    followers: String,
+    following: String
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -170,17 +259,42 @@ fun ProfileUserData() {
                 .padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Profile Avatar - Size: 90dp
+            // Profile Avatar with Story Ring
             Box(
-                modifier = Modifier
-                    .size(90.dp)
-                    .background(Color(0xFFF0F0F0), CircleShape)
-                    .border(
-                        width = 2.dp,
-                        color = Color(0xFFE91E63), // Story ring gradient simplified
-                        shape = CircleShape
+                modifier = Modifier.size(90.dp)
+            ) {
+                // Story ring gradient
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    Color(0xFFC913B9),
+                                    Color(0xFFF93730),
+                                    Color(0xFFFECC00)
+                                )
+                            ),
+                            shape = CircleShape
+                        )
+                )
+                
+                // Profile image
+                Box(
+                    modifier = Modifier
+                        .size(76.dp)
+                        .align(Alignment.Center)
+                        .background(Color.White, CircleShape)
+                        .border(0.5.dp, Color(0xFFDDDDDD), CircleShape)
+                ) {
+                    // TODO: Replace with actual profile image
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color(0xFFF0F0F0), CircleShape)
                     )
-            )
+                }
+            }
             
             Spacer(modifier = Modifier.width(40.dp))
             
@@ -188,9 +302,9 @@ fun ProfileUserData() {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                ProfileStatItem("1,234", "Posts")
-                ProfileStatItem("5,678", "Followers")
-                ProfileStatItem("9,101", "Following")
+                ProfileStatItem(posts, "Posts")
+                ProfileStatItem(followers, "Followers")
+                ProfileStatItem(following, "Following")
             }
         }
     }
@@ -217,7 +331,13 @@ fun ProfileStatItem(number: String, label: String) {
 }
 
 @Composable
-fun ProfileUsernameAndInfo() {
+fun ProfileUsernameAndInfo(
+    username: String,
+    categoryText: String,
+    bio: String,
+    link: String,
+    followedByText: String
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -229,16 +349,17 @@ fun ProfileUsernameAndInfo() {
         
         // Username
         Text(
-            text = "Username",
+            text = username,
             fontSize = 13.sp,
-            color = Color.White
+            color = Color.White,
+            fontFamily = FontFamily.Default
         )
         
         Spacer(modifier = Modifier.height(3.dp))
         
         // Category/Genre
         Text(
-            text = "Category/Genre text",
+            text = categoryText,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White.copy(alpha = 0.5f)
@@ -248,7 +369,7 @@ fun ProfileUsernameAndInfo() {
         
         // Bio
         Text(
-            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt #hashtag",
+            text = bio,
             fontSize = 13.sp,
             color = Color.White,
             lineHeight = 16.sp
@@ -258,7 +379,7 @@ fun ProfileUsernameAndInfo() {
         
         // Link
         Text(
-            text = "Link goes here",
+            text = link,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF004C8B)
@@ -272,22 +393,35 @@ fun ProfileUsernameAndInfo() {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // Avatars with overlapping effect
-            Box {
+            Box(
+                modifier = Modifier.width(54.dp)
+            ) {
                 repeat(3) { index ->
                     Box(
                         modifier = Modifier
                             .size(26.dp)
                             .offset(x = (index * 14).dp)
-                            .background(Color(0xFFF0F0F0), CircleShape)
-                            .border(1.dp, Color.Black, CircleShape)
-                    )
+                    ) {
+                        // Avatar border
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Black, CircleShape)
+                                .padding(1.5.dp)
+                        ) {
+                            // Avatar placeholder
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(Color(0xFFDDDDDD), CircleShape)
+                            )
+                        }
+                    }
                 }
             }
             
-            Spacer(modifier = Modifier.width(28.dp)) // Account for overlapping avatars
-            
             Text(
-                text = "Followed by username, username\nand 100 others",
+                text = followedByText,
                 fontSize = 13.sp,
                 color = Color.White,
                 lineHeight = 16.sp
@@ -305,7 +439,8 @@ fun ProfileUsernameAndInfo() {
                 onClick = { },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1FA1FF)),
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(3.dp)
+                shape = RoundedCornerShape(3.dp),
+                contentPadding = PaddingValues(vertical = 7.dp)
             ) {
                 Text(
                     text = "Follow",
@@ -324,20 +459,23 @@ fun ProfileUsernameAndInfo() {
                 ProfileButton("Subscribe", modifier = Modifier.weight(1f))
                 ProfileButton("Contact", modifier = Modifier.weight(1f))
                 
-                // Special icon button
+                // More options button
                 Button(
                     onClick = { },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White.copy(alpha = 0.2f)
                     ),
-                    modifier = Modifier.width(32.dp).height(30.dp),
+                    modifier = Modifier
+                        .width(32.dp)
+                        .height(30.dp),
                     shape = RoundedCornerShape(3.dp),
                     contentPadding = PaddingValues(0.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(14.dp)
-                            .background(Color.White)
+                    Image(
+                        painter = painterResource(Res.drawable.ic_more_options),
+                        contentDescription = "More options",
+                        modifier = Modifier.size(14.dp),
+                        colorFilter = ColorFilter.tint(Color.White)
                     )
                 }
             }
@@ -379,31 +517,56 @@ fun ProfileSavedStories() {
             horizontalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             items(5) { index ->
-                ProfileStoryItem("Text here")
+                ProfileSavedStoryItem(
+                    label = "Text here",
+                    imageResource = when (index) {
+                        0 -> Res.drawable.story_1
+                        1 -> Res.drawable.story_2
+                        2 -> Res.drawable.story_3
+                        3 -> Res.drawable.story_4
+                        else -> Res.drawable.story_5
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-fun ProfileStoryItem(label: String) {
+fun ProfileSavedStoryItem(
+    label: String,
+    imageResource: DrawableResource
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.width(60.dp)
     ) {
-        // Story circle
         Box(
-            modifier = Modifier
-                .size(60.dp)
-                .background(Color.White, CircleShape)
-                .border(1.dp, Color(0xFFC4C4C4), CircleShape)
+            modifier = Modifier.size(60.dp)
         ) {
+            // Story circle border
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .border(1.dp, Color(0xFFC4C4C4), CircleShape)
+            )
+            
+            // Story image container
             Box(
                 modifier = Modifier
                     .size(52.dp)
-                    .background(Color(0xFFF0F0F0), CircleShape)
                     .align(Alignment.Center)
-            )
+                    .background(Color.White, CircleShape)
+            ) {
+                Image(
+                    painter = painterResource(imageResource),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+            }
         }
         
         Spacer(modifier = Modifier.height(4.dp))
@@ -411,10 +574,13 @@ fun ProfileStoryItem(label: String) {
         Text(
             text = label,
             fontSize = 12.sp,
-            color = Color.White
+            color = Color.White,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            letterSpacing = (-0.408).sp
         )
     }
 }
+
 
 @Composable
 fun ProfileTabNavigation() {
@@ -433,11 +599,13 @@ fun ProfileTabNavigation() {
                     .width(130.dp)
                     .fillMaxHeight()
             ) {
-                Box(
+                Image(
+                    painter = painterResource(Res.drawable.ic_grid),
+                    contentDescription = "Posts",
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color.White)
-                        .align(Alignment.Center)
+                        .align(Alignment.Center),
+                    colorFilter = ColorFilter.tint(Color.White)
                 )
                 
                 // Selected indicator
@@ -456,11 +624,13 @@ fun ProfileTabNavigation() {
                     .width(130.dp)
                     .fillMaxHeight()
             ) {
-                Box(
+                Image(
+                    painter = painterResource(Res.drawable.ic_reels),
+                    contentDescription = "Reels",
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color(0xFFC4C4C4))
-                        .align(Alignment.Center)
+                        .align(Alignment.Center),
+                    colorFilter = ColorFilter.tint(Color(0xFFC4C4C4))
                 )
             }
             
@@ -470,11 +640,13 @@ fun ProfileTabNavigation() {
                     .width(130.dp)
                     .fillMaxHeight()
             ) {
-                Box(
+                Image(
+                    painter = painterResource(Res.drawable.ic_tagged),
+                    contentDescription = "Tagged",
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color(0xFFC4C4C4))
-                        .align(Alignment.Center)
+                        .align(Alignment.Center),
+                    colorFilter = ColorFilter.tint(Color(0xFFC4C4C4))
                 )
             }
         }
@@ -483,25 +655,28 @@ fun ProfileTabNavigation() {
 
 @Composable
 fun ProfileGridPhotoView() {
-    val gridPhotos: List<String> = listOf(
-        ImageResources.gridPhoto1,
-        ImageResources.gridPhoto2,
-        ImageResources.gridPhoto3,
-        ImageResources.gridPhoto4,
-        ImageResources.gridPhoto5,
-        ImageResources.gridPhoto6,
-        ImageResources.gridPhoto7,
-        ImageResources.gridPhoto8,
-        ImageResources.gridPhoto9,
-        ImageResources.gridPhoto10,
-        ImageResources.gridPhoto11,
-        ImageResources.gridPhoto12
+    val gridPhotos = listOf(
+        Triple(Res.drawable.post_1, PostType.NORMAL, null),
+        Triple(Res.drawable.post_2, PostType.REELS, null),
+        Triple(Res.drawable.post_3, PostType.CAROUSEL, null),
+        Triple(Res.drawable.post_4, PostType.CAROUSEL, null),
+        Triple(Res.drawable.post_5, PostType.NORMAL, null),
+        Triple(Res.drawable.post_6, PostType.NORMAL, null),
+        Triple(Res.drawable.post_7, PostType.REELS, null),
+        Triple(Res.drawable.post_8, PostType.CAROUSEL, null),
+        Triple(Res.drawable.post_9, PostType.NORMAL, null),
+        Triple(Res.drawable.post_10, PostType.NORMAL, null),
+        Triple(Res.drawable.post_11, PostType.REELS, null),
+        Triple(Res.drawable.post_12, PostType.NORMAL, null),
+        Triple(Res.drawable.post_13, PostType.CAROUSEL, null),
+        Triple(Res.drawable.post_14, PostType.NORMAL, null),
+        Triple(Res.drawable.post_15, PostType.NORMAL, null)
     )
     
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight() // Take remaining space
+            .fillMaxHeight()
             .background(Color.White)
             .border(width = 1.dp, color = Color(0xFFB4B4B4))
     ) {
@@ -511,33 +686,55 @@ fun ProfileGridPhotoView() {
             verticalArrangement = Arrangement.spacedBy(1.dp),
             horizontalArrangement = Arrangement.spacedBy(1.dp)
         ) {
-            items(gridPhotos) { photoResource ->
+            items(gridPhotos) { (imageResource, type, _) ->
                 Box(
                     modifier = Modifier
                         .aspectRatio(1f)
                         .background(Color(0xFFDFDFE8))
                 ) {
-                    // Photo placeholder (using colored box for now)
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color(0xFFF0F0F0))
+                    Image(
+                        painter = painterResource(imageResource),
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
                     )
                     
-                    // Random icons on some posts
-                    if (listOf(1, 2, 6, 8, 12).contains(gridPhotos.indexOf(photoResource) + 1)) {
-                        Box(
-                            modifier = Modifier
-                                .align(Alignment.TopEnd)
-                                .padding(4.dp)
-                                .size(12.dp)
-                                .background(Color.White, RoundedCornerShape(2.dp))
-                        )
+                    // Post type indicator
+                    when (type) {
+                        PostType.CAROUSEL -> {
+                            Image(
+                                painter = painterResource(Res.drawable.ic_carousel),
+                                contentDescription = "Carousel",
+                                modifier = Modifier
+                                    .align(Alignment.TopEnd)
+                                    .padding(4.dp)
+                                    .size(12.dp),
+                                colorFilter = ColorFilter.tint(Color.White)
+                            )
+                        }
+                        PostType.REELS -> {
+                            Image(
+                                painter = painterResource(Res.drawable.ic_reels_small),
+                                contentDescription = "Reels",
+                                modifier = Modifier
+                                    .align(Alignment.TopEnd)
+                                    .padding(4.dp)
+                                    .size(12.dp),
+                                colorFilter = ColorFilter.tint(Color.White)
+                            )
+                        }
+                        else -> { /* No indicator for normal posts */ }
                     }
                 }
             }
         }
     }
+}
+
+enum class PostType {
+    NORMAL,
+    REELS,
+    CAROUSEL
 }
 
 @Composable
@@ -563,27 +760,45 @@ fun ProfileBottomNavigation() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            repeat(4) {
-                Box(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .background(Color.White)
-                )
-            }
+            Image(
+                painter = painterResource(Res.drawable.ic_home),
+                contentDescription = "Home",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
+            Image(
+                painter = painterResource(Res.drawable.ic_search),
+                contentDescription = "Search",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
+            Image(
+                painter = painterResource(Res.drawable.ic_add),
+                contentDescription = "Create",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
+            Image(
+                painter = painterResource(Res.drawable.ic_heart),
+                contentDescription = "Activity",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
             
             // Profile avatar with notification dot
             Box {
-                // Profile icon placeholder
                 Box(
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color(0xFFF0F0F0), CircleShape)
-                        .border(
-                            width = 1.dp,
-                            color = Color(0xFFDDDDDD),
-                            shape = CircleShape
-                        )
-                )
+                        .clip(CircleShape)
+                ) {
+                    Image(
+                        painter = painterResource(Res.drawable.profile_small),
+                        contentDescription = "Profile",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
                 
                 // Notification dot
                 Box(
