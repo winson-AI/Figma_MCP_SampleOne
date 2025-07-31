@@ -1,8 +1,0 @@
-<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Button">
-<circle id="Ellipse 77" cx="5" cy="5" r="5" fill="var(--fill-0, #1FA1FF)"/>
-<g id="Group 6">
-<path id="Union" d="M5 2.5C5.27614 2.5 5.5 2.72386 5.5 3V4.5H7C7.27614 4.5 7.5 4.72386 7.5 5C7.5 5.27614 7.27614 5.5 7 5.5H5.5V7C5.5 7.27614 5.27614 7.5 5 7.5C4.72386 7.5 4.5 7.27614 4.5 7V5.5H3C2.72386 5.5 2.5 5.27614 2.5 5C2.5 4.72386 2.72386 4.5 3 4.5H4.5V3C4.5 2.72386 4.72386 2.5 5 2.5Z" fill="var(--fill-0, white)"/>
-</g>
-</g>
-</svg>
