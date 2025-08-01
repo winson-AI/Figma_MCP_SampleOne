@@ -46,11 +46,11 @@ import sampleone.composeapp.generated.resources.ic_reels
 import sampleone.composeapp.generated.resources.ic_search
 import sampleone.composeapp.generated.resources.ic_share
 import sampleone.composeapp.generated.resources.ic_signal
+import sampleone.composeapp.generated.resources.ic_tagged
 import sampleone.composeapp.generated.resources.ic_verified
 import sampleone.composeapp.generated.resources.ic_wifi
 import sampleone.composeapp.generated.resources.main_post_image
 import sampleone.composeapp.generated.resources.profile_small
-import sampleone.composeapp.generated.resources.story_1
 import sampleone.composeapp.generated.resources.story_2
 import sampleone.composeapp.generated.resources.story_3
 import sampleone.composeapp.generated.resources.story_4
@@ -433,6 +433,13 @@ fun FeedPostInfo() {
                     .size(24.dp)
                     .background(Color.White)
             )
+            {
+                Image(
+                    painter = painterResource(Res.drawable.ic_tagged),
+                    contentDescription = "Like",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
         }
         
         // Icons section - Height: 44dp
