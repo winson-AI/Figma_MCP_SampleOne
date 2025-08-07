@@ -2,6 +2,15 @@
 
 This project demonstrates the implementation of Instagram-like UI designs from Figma into a Kotlin Multiplatform (KMP) Compose project using MCP (Model Context Protocol) tools.
 
+## FigmaInput
+
+https://www.figma.com/design/Ow4utpAm3ddSJGwckw4iRJ/medium_media?node-id=0-1
+
+| One | Two |
+| :---: | :---: |
+| ![Architecture diagram](median-feed-post.png)| ![Architecture diagram](median-profile-screen.png) |
+| Feed Post | Profile Screen |
+
 ## 🎨 Design Overview
 
 The project implements two main screens from the Figma design:
