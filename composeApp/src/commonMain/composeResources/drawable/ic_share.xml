@@ -3,19 +3,14 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path
-        android:strokeColor="#000000"
-        android:strokeWidth="2"
-        android:pathData="M4,12v8a2,2 0,0 0,2 2h12a2,2 0,0 0,2 -2V12"/>
-    <polyline
-        android:strokeColor="#000000"
-        android:strokeWidth="2"
-        android:points="16,6 12,2 8,6"/>
-    <line
-        android:strokeColor="#000000"
-        android:strokeWidth="2"
-        android:x1="12"
-        android:y1="2"
-        android:x2="12"
-        android:y2="15"/>
+    <group>
+        <clip-path
+            android:pathData="M0,0h24v24h-24z"/>
+        <path
+            android:pathData="M12.127,20.306L9.361,11.238C9.331,11.139 9.284,11.047 9.224,10.965L9.158,10.886L2.684,3.95L21.569,3.95L12.127,20.306Z"
+            android:strokeLineJoin="round"
+            android:strokeWidth="1.8"
+            android:fillColor="#00000000"
+            android:strokeColor="#000000"/>
+    </group>
 </vector> 
