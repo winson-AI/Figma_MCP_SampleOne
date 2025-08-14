@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.zIndex
 import org.jetbrains.compose.resources.painterResource
 import sampleone.composeapp.generated.resources.Res
 import sampleone.composeapp.generated.resources.ic_heart
@@ -36,11 +37,17 @@ import sampleone.composeapp.generated.resources.ic_wifi
 import sampleone.composeapp.generated.resources.ic_battery
 import sampleone.composeapp.generated.resources.ic_grid
 import sampleone.composeapp.generated.resources.ic_reels
+import sampleone.composeapp.generated.resources.ic_reels_unselect
 import sampleone.composeapp.generated.resources.ic_tagged
 import sampleone.composeapp.generated.resources.ic_carousel
+import sampleone.composeapp.generated.resources.ic_shop
 import sampleone.composeapp.generated.resources.ic_reels_small
 import sampleone.composeapp.generated.resources.ic_more_options
 import org.jetbrains.compose.resources.DrawableResource
+import sampleone.composeapp.generated.resources._260acb7f837eef41ed89178bb8849abaae20e34a
+import sampleone.composeapp.generated.resources.a250d585517bb607f6262acc3ccbf7be91a53aa0
+import sampleone.composeapp.generated.resources.d1498caab2525cc395b7459d400d8da29570c3fb
+import sampleone.composeapp.generated.resources._5c0c8419f15b9472f1ee26bd0910024a435f0017
 import sampleone.composeapp.generated.resources.ic_verified
 import sampleone.composeapp.generated.resources.ic_home
 import sampleone.composeapp.generated.resources.ic_search
@@ -68,7 +75,7 @@ import sampleone.composeapp.generated.resources.post_14
 import sampleone.composeapp.generated.resources.post_15
 
 
-
+@Preview
 @Composable
 fun ProfileScreen(onBackClick: () -> Unit = {}) {
     Column(
@@ -278,7 +285,7 @@ fun ProfileUserData(
                             shape = CircleShape
                         )
                 )
-
+                
                 // Profile image
                 Box(
                     modifier = Modifier
@@ -286,19 +293,19 @@ fun ProfileUserData(
                         .align(Alignment.Center)
                         .background(Color.White, CircleShape)
                         .border(0.5.dp, Color(0xFFDDDDDD), CircleShape)
-                )
-                {
+                ) {
+                    // TODO: Replace with actual profile image
                     Image(
-                        painter = painterResource(Res.drawable.profile_small),
-                        contentDescription = null,
+                        painter = painterResource(resource = Res.drawable._260acb7f837eef41ed89178bb8849abaae20e34a),
+                        contentDescription = "Profile Image",
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(CircleShape),
-                        contentScale = ContentScale.Crop
+                            .size(76.dp)
+                            .clip(CircleShape),          // 圆形
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.width(40.dp))
             
             // Stats
@@ -399,11 +406,17 @@ fun ProfileUsernameAndInfo(
             Box(
                 modifier = Modifier.width(54.dp)
             ) {
+                val followPhotos = listOf(
+                    Res.drawable.a250d585517bb607f6262acc3ccbf7be91a53aa0,
+                    Res.drawable.d1498caab2525cc395b7459d400d8da29570c3fb,
+                    Res.drawable._5c0c8419f15b9472f1ee26bd0910024a435f0017,
+                )
                 repeat(3) { index ->
                     Box(
                         modifier = Modifier
                             .size(26.dp)
                             .offset(x = (index * 14).dp)
+                            .zIndex(3f - index)
                     ) {
                         // Avatar border
                         Box(
@@ -417,10 +430,9 @@ fun ProfileUsernameAndInfo(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .background(Color(0xFFDDDDDD), CircleShape)
-                            )
-                            {
+                            ) {
                                 Image(
-                                    painter = painterResource(Res.drawable.story_1),
+                                    painter = painterResource(resource = followPhotos.get(2-index)),
                                     contentDescription = null,
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -520,8 +532,8 @@ fun ProfileSavedStories() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(86.dp)
-            .background(Color(0xFFF5F5F5))
+            .height(76.dp)
+            .background(Color.Black)
     ) {
         LazyRow(
             modifier = Modifier
@@ -638,7 +650,7 @@ fun ProfileTabNavigation() {
                     .fillMaxHeight()
             ) {
                 Image(
-                    painter = painterResource(Res.drawable.ic_reels),
+                    painter = painterResource(Res.drawable.ic_reels_unselect),
                     contentDescription = "Reels",
                     modifier = Modifier
                         .size(24.dp)
@@ -786,13 +798,13 @@ fun ProfileBottomNavigation() {
                 colorFilter = ColorFilter.tint(Color.White)
             )
             Image(
-                painter = painterResource(Res.drawable.ic_add),
+                painter = painterResource(Res.drawable.ic_reels),
                 contentDescription = "Create",
                 modifier = Modifier.size(24.dp),
                 colorFilter = ColorFilter.tint(Color.White)
             )
             Image(
-                painter = painterResource(Res.drawable.ic_heart),
+                painter = painterResource(Res.drawable.ic_shop),
                 contentDescription = "Activity",
                 modifier = Modifier.size(24.dp),
                 colorFilter = ColorFilter.tint(Color.White)

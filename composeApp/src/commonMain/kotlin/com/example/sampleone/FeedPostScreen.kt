@@ -4,57 +4,50 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
+
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.resources.painterResource
 import sampleone.composeapp.generated.resources.Res
-import sampleone.composeapp.generated.resources.ic_battery
-import sampleone.composeapp.generated.resources.ic_bookmark
-import sampleone.composeapp.generated.resources.ic_comment
+import sampleone.composeapp.generated.resources._260acb7f837eef41ed89178bb8849abaae20e34a
+import sampleone.composeapp.generated.resources._7d821e7425adf756c728d159ecd918163f1bf823
+import sampleone.composeapp.generated.resources._7768f39628e8130d48cd115b029fa0cb022605b3
+import sampleone.composeapp.generated.resources.a250d585517bb607f6262acc3ccbf7be91a53aa0
+import sampleone.composeapp.generated.resources._5c0c8419f15b9472f1ee26bd0910024a435f0017
 import sampleone.composeapp.generated.resources.ic_heart
-import sampleone.composeapp.generated.resources.ic_home
-import sampleone.composeapp.generated.resources.ic_like
+import sampleone.composeapp.generated.resources.ic_arrow_right
+import sampleone.composeapp.generated.resources.ic_arrow_down
 import sampleone.composeapp.generated.resources.ic_message
-import sampleone.composeapp.generated.resources.ic_more
-import sampleone.composeapp.generated.resources.ic_reels
 import sampleone.composeapp.generated.resources.ic_search
-import sampleone.composeapp.generated.resources.ic_share
-import sampleone.composeapp.generated.resources.ic_signal
-import sampleone.composeapp.generated.resources.ic_tagged
-import sampleone.composeapp.generated.resources.ic_verified
+import sampleone.composeapp.generated.resources.ic_more
+import sampleone.composeapp.generated.resources.ic_add
+import sampleone.composeapp.generated.resources.ic_home
+import sampleone.composeapp.generated.resources.ic_shop
 import sampleone.composeapp.generated.resources.ic_wifi
+import sampleone.composeapp.generated.resources.ic_signal
+import sampleone.composeapp.generated.resources.ic_battery
+import sampleone.composeapp.generated.resources.ic_like
+import sampleone.composeapp.generated.resources.ic_comment
+import sampleone.composeapp.generated.resources.ic_share
+import sampleone.composeapp.generated.resources.ic_bookmark
+import sampleone.composeapp.generated.resources.ic_reels
 import sampleone.composeapp.generated.resources.main_post_image
-import sampleone.composeapp.generated.resources.profile_small
-import sampleone.composeapp.generated.resources.story_2
-import sampleone.composeapp.generated.resources.story_3
-import sampleone.composeapp.generated.resources.story_4
-import sampleone.composeapp.generated.resources.story_5
 
 @Composable
 fun FeedPostScreen(onAvatarClick: () -> Unit = {}) {
@@ -162,10 +155,11 @@ fun FeedNavigationBar() {
             )
             Spacer(modifier = Modifier.width(8.dp))
             // Dropdown arrow placeholder - can be replaced with actual arrow icon
-            Box(
-                modifier = Modifier
-                    .size(16.dp)
-                    .background(Color.Black)
+            Image(
+                painter = painterResource(Res.drawable.ic_arrow_down),
+                contentDescription = "to down",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.Black)
             )
         }
         
@@ -178,19 +172,21 @@ fun FeedNavigationBar() {
         )
         {
             Image(
-                painter = painterResource(Res.drawable.ic_heart),
+                painter = painterResource(Res.drawable.ic_like),
                 contentDescription = "Notifications",
                 modifier = Modifier.size(24.dp)
             )
             Image(
-                painter = painterResource(Res.drawable.ic_search),
+                painter = painterResource(Res.drawable.ic_message),
                 contentDescription = "Search",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.Black)
             )
             Image(
-                painter = painterResource(Res.drawable.ic_message),
+                painter = painterResource(Res.drawable.ic_add),
                 contentDescription = "Messages",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.Black)
             )
         }
     }
@@ -214,7 +210,7 @@ fun FeedStoryTray() {
             item {
                 FeedStoryItem(
                     username = "Ruffles",
-                    avatarResource = Res.drawable.profile_small,
+                    avatarResource = Res.drawable._260acb7f837eef41ed89178bb8849abaae20e34a,
                     hasStory = false,
                     isFirstItem = true
                 )
@@ -223,10 +219,10 @@ fun FeedStoryTray() {
             // Other stories with real avatar images
             items(
                 listOf(
-                    "sabanok..." to Res.drawable.story_2,
-                    "blue_bouy" to Res.drawable.story_3,
-                    "waggles" to Res.drawable.story_4,
-                    "steve.loves" to Res.drawable.story_5,
+                    "sabanok..." to Res.drawable._5c0c8419f15b9472f1ee26bd0910024a435f0017,
+                    "blue_bouy" to Res.drawable._7d821e7425adf756c728d159ecd918163f1bf823,
+                    "waggles" to Res.drawable.a250d585517bb607f6262acc3ccbf7be91a53aa0,
+                    "steve.loves" to Res.drawable._7768f39628e8130d48cd115b029fa0cb022605b3
                 )
             ) { (username, avatarResource) ->
                 FeedStoryItem(
@@ -261,13 +257,14 @@ fun FeedStoryItem(username: String, avatarResource: DrawableResource, hasStory: 
                     )
             ){
                 Image(
-                    painter = painterResource(avatarResource),
-                    contentDescription = null,
+                    painter = painterResource(resource = avatarResource),
+                    contentDescription = "Feed Image",
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop
+                        .size(72.dp)
+                        .clip(CircleShape),          // 圆形
                 )
+
             }
             
             // Add button for first item
@@ -326,15 +323,14 @@ fun FeedUserHeader(onAvatarClick: () -> Unit) {
                         shape = CircleShape
                     )
                     .clickable { onAvatarClick() }
-            )
-            {
+            ) {
                 Image(
-                    painter = painterResource(Res.drawable.profile_small),
-                    contentDescription = null,
+                    painter = painterResource(Res.drawable._260acb7f837eef41ed89178bb8849abaae20e34a),
+                    contentDescription = "Feed Image",
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop
+                        .size(36.dp)
+                        .clip(CircleShape),          // 圆形
                 )
             }
             
@@ -425,21 +421,15 @@ fun FeedPostInfo() {
                     .align(Alignment.CenterStart)
                     .padding(start = 12.dp)
             )
-            
-            Box(
+
+            Image(
+                painter = painterResource(Res.drawable.ic_arrow_right),
+                contentDescription = "to right",
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = 18.dp)
                     .size(24.dp)
-                    .background(Color.White)
             )
-            {
-                Image(
-                    painter = painterResource(Res.drawable.ic_tagged),
-                    contentDescription = "Like",
-                    modifier = Modifier.size(24.dp)
-                )
-            }
         }
         
         // Icons section - Height: 44dp
@@ -458,7 +448,7 @@ fun FeedPostInfo() {
             )
             {
                 Image(
-                    painter = painterResource(Res.drawable.ic_like),
+                    painter = painterResource(Res.drawable.ic_heart),
                     contentDescription = "Like",
                     modifier = Modifier.size(24.dp)
                 )
@@ -470,7 +460,8 @@ fun FeedPostInfo() {
                 Image(
                     painter = painterResource(Res.drawable.ic_share),
                     contentDescription = "Share",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
+                    colorFilter = ColorFilter.tint(Color.Black)
                 )
             }
             
@@ -507,7 +498,8 @@ fun FeedPostInfo() {
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = 13.dp)
-                    .size(24.dp)
+                    .size(24.dp),
+                colorFilter = ColorFilter.tint(Color.Black)
             )
         }
         
@@ -641,7 +633,8 @@ fun FeedBottomNavigation() {
             Image(
                 painter = painterResource(Res.drawable.ic_search),
                 contentDescription = "Search",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.Black)
             )
             Image(
                 painter = painterResource(Res.drawable.ic_reels),
@@ -649,9 +642,10 @@ fun FeedBottomNavigation() {
                 modifier = Modifier.size(24.dp)
             )
             Image(
-                painter = painterResource(Res.drawable.ic_verified),
+                painter = painterResource(Res.drawable.ic_shop),
                 contentDescription = "Activity",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.Black)
             )
             
             // Profile avatar with notification dot
@@ -674,13 +668,7 @@ fun FeedBottomNavigation() {
                         .size(4.dp)
                         .background(Color(0xFFFE0135), CircleShape)
                         .offset(x = 18.dp, y = 18.dp)
-                ){
-                    Image(
-                        painter = painterResource(Res.drawable.profile_small),
-                        contentDescription = "Activity",
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
+                )
             }
         }
     }
