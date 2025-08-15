@@ -48,6 +48,7 @@ import sampleone.composeapp.generated.resources.ic_share
 import sampleone.composeapp.generated.resources.ic_bookmark
 import sampleone.composeapp.generated.resources.ic_reels
 import sampleone.composeapp.generated.resources.main_post_image
+import sampleone.composeapp.generated.resources.profile_small
 
 @Composable
 fun FeedPostScreen(onAvatarClick: () -> Unit = {}) {
@@ -654,13 +655,15 @@ fun FeedBottomNavigation() {
                 Box(
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color(0xFFF0F0F0), CircleShape)
-                        .border(
-                            width = 1.dp,
-                            color = Color(0xFFDDDDDD),
-                            shape = CircleShape
-                        )
-                )
+                        .clip(CircleShape)
+                ) {
+                    Image(
+                        painter = painterResource(Res.drawable.profile_small),
+                        contentDescription = "Profile",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
                 
                 // Notification dot
                 Box(

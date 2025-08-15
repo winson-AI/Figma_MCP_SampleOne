@@ -29,7 +29,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.zIndex
 import org.jetbrains.compose.resources.painterResource
 import sampleone.composeapp.generated.resources.Res
-import sampleone.composeapp.generated.resources.ic_heart
 import sampleone.composeapp.generated.resources.ic_back
 import sampleone.composeapp.generated.resources.ic_notification
 import sampleone.composeapp.generated.resources.ic_more
@@ -52,7 +51,6 @@ import sampleone.composeapp.generated.resources.ic_verified
 import sampleone.composeapp.generated.resources.ic_home
 import sampleone.composeapp.generated.resources.ic_search
 import sampleone.composeapp.generated.resources.profile_small
-import sampleone.composeapp.generated.resources.ic_add
 import sampleone.composeapp.generated.resources.story_1
 import sampleone.composeapp.generated.resources.story_2
 import sampleone.composeapp.generated.resources.story_3
@@ -323,8 +321,7 @@ fun ProfileUserData(
 @Composable
 fun ProfileStatItem(number: String, label: String) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.width(36.dp)
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = number,
@@ -394,9 +391,7 @@ fun ProfileUsernameAndInfo(
             fontWeight = FontWeight.Bold,
             color = Color(0xFF004C8B)
         )
-        
-        Spacer(modifier = Modifier.height(12.dp))
-        
+
         // Followers section
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -452,9 +447,7 @@ fun ProfileUsernameAndInfo(
                 lineHeight = 16.sp
             )
         }
-        
-        Spacer(modifier = Modifier.height(12.dp))
-        
+
         // Buttons section
         Column(
             verticalArrangement = Arrangement.spacedBy(9.dp)
